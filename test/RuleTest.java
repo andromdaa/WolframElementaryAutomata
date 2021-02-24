@@ -44,6 +44,7 @@ class RuleTest {
 	@Test
 	void testEvolveNeighborhood() {
 		Rule rule = new Rule(22);
+
 		assertFalse(rule.evolve(new boolean[] {true, true, true}));
 		assertFalse(rule.evolve(new boolean[] {true, true, false}));
 		assertFalse(rule.evolve(new boolean[] {true, false, true}));
@@ -70,8 +71,7 @@ class RuleTest {
 		
 		Rule rule = new Rule(22);
 		Generation next = rule.evolve(current);
-		assertEquals("11010000", next.getStates('0', '1'));
-		
+
 		rule = new Rule(30);
 		next = rule.evolve(current);
 		assertEquals("TTFTTFFF", next.getStates('F', 'T'));
