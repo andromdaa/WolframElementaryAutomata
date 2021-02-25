@@ -12,10 +12,9 @@ import java.util.ArrayList;
 
 public class Automaton {
     private Rule rule;
-    private ArrayList<Generation> generations;
+    private final ArrayList<Generation> generations;
     char falseSymbol;
     char trueSymbol;
-
 
     /**
      * Initializes the Automaton.

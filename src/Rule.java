@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -15,7 +17,7 @@ public class Rule {
     private final int ruleNum;
     private final boolean[] ruleStates = new boolean[8];
     private final HashMap<String, Boolean> binaryValues = new HashMap<>();
-    private char[] charArray;
+    private final ArrayList<Character> charList = new ArrayList<>();
 
     /*
     On the first generation, the middle index is set to 1 (positive),
@@ -52,34 +54,28 @@ public class Rule {
      * Pads the binary value with zeros to ensure that the rule is correct represented within the
      * ruleStates boolean array. Without padding, the true or false values would be incorrect.
      */
-    private void padBinary() {
-
-        // convert binary string to character array;
+    public void padBinary() {
+        //Convert the rule number into a binary, and then make a character array of it
         char[] binaryCharArray = Integer.toBinaryString(ruleNum).toCharArray();
 
-        //initialize character array with the correct length
-        charArray = new char[8];
+        //New character array with the same length as the binaryCharArray.
+        Character[] charArray = new Character[binaryCharArray.length];
 
-        //get the amount of indexes to pad with zeros in the charArray index
-        int amountToPad = charArray.length - binaryCharArray.length;
+        //Get the required padding amount from the difference of 8 and the binary array.
+        Character[] padAmount = new Character[8 - binaryCharArray.length];
+        //Fill the padding array with zeros (false values)
+        Arrays.fill(padAmount, '0');
 
-        //loops over x amount of times until it pads the proper amount for the binary number
-        for (int i = 0; i < amountToPad; i++) {
-            charArray[i] = '0';
+        //Fill the charArray with its corresponding binary value
+        for (int i = 0; i < binaryCharArray.length; i++) {
+            charArray[i] = binaryCharArray[i];
         }
-
-
-        //separate index control
-        int charIdx = 0;
-
-        //adds the remaining indexes to charArray
-        for (int i = amountToPad; i < binaryCharArray.length + amountToPad; i++) {
-            charArray[i] = binaryCharArray[charIdx];
-            charIdx++;
-        }
+        //Add the padding first to ensure correct corresponding state to binary values.
+        charList.addAll(Arrays.asList(padAmount));
+        //Add the binary values
+        charList.addAll(Arrays.asList(charArray));
 
     }
-
 
     /**
      * Creates the array that is used in the hashmap to assign the relational values
@@ -90,9 +86,9 @@ public class Rule {
     private void createValueArray() {
 
         //loops over the charArray and assigns corresponding true/false value
-        for (int i = 0; i < charArray.length; i++) {
+        for (int i = 0; i < charList.size(); i++) {
             //if equal to one, assigns true, else false
-            if (Integer.parseInt(String.valueOf(charArray[i])) == 1) {
+            if (Integer.parseInt(String.valueOf(charList.get(i))) == 1) {
                 ruleStates[i] = true;
             } else {
                 ruleStates[i] = false;
