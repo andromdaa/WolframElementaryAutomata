@@ -16,6 +16,18 @@ public class Automaton {
     char falseSymbol;
     char trueSymbol;
 
+
+    public static void main(String[] args) {
+        Automaton eca = new Automaton(2, new Generation(("100001000010"), '1'));
+
+        eca.evolve(50);
+        eca.trueSymbol = '$';
+        eca.falseSymbol = ';';
+
+        eca.saveEvolution("rule2.txt");
+    }
+
+
     /**
      * Initializes the Automaton.
      *
@@ -50,8 +62,8 @@ public class Automaton {
             String valueSymbols = reader.readLine();
             //split the valueSymbols string, strip it of any spaces, and then get its character value
             String[] splitStrings = valueSymbols.split(" ");
-            trueSymbol = splitStrings[0].charAt(0);
-            falseSymbol = splitStrings[1].trim().charAt(0);
+            falseSymbol = splitStrings[0].charAt(0);
+            trueSymbol = splitStrings[1].trim().charAt(0);
             //get the cellStates from the next line
             initialCellStates = reader.readLine();
         } catch (IOException ignored) {
@@ -100,7 +112,7 @@ public class Automaton {
      * Gets the generation of the specific step number, if it does not exist, then evolve the generation until it is reached.
      *
      * @param stepNum The step number that should be used to get that generation.
-     * @return
+     * @return Returns the generation from the given step.
      */
     //gets the generation of the specific stepNum
     public Generation getGeneration(int stepNum) {

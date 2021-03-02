@@ -27,7 +27,7 @@ public class Generation {
     /**
      * Initializes a generation
      *
-     * @param states A string of states that is representative of the true or false values used to initialize a generation.
+     * @param states     A string of states that is representative of the true or false values used to initialize a generation.
      * @param trueSymbol The symbol that is used to signify an element from the string object is true.
      */
     public Generation(String states, char trueSymbol) {
@@ -76,7 +76,7 @@ public class Generation {
      * Gets the states of a generation given true and false symbols.
      *
      * @param falseSymbol The symbol that represents an element as false.
-     * @param trueSymbol The symbol that represents an element as true.
+     * @param trueSymbol  The symbol that represents an element as true.
      * @return Returns the states as a string which has its true or false values replaced with its respective symbol.
      */
     public String getStates(char falseSymbol, char trueSymbol) {

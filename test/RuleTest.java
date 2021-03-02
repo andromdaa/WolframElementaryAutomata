@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 class RuleTest {
 
 	@Test
@@ -39,6 +41,10 @@ class RuleTest {
 		
 		neighborhood = Rule.getNeighborhood(3, gen);
 		assertArrayEquals(new boolean[] {true, false, false}, neighborhood);
+
+		Generation gen2 = new Generation(true, false);
+		boolean[] genTwoNeighborhood = Rule.getNeighborhood(1, gen2);
+		System.out.println(Arrays.toString(genTwoNeighborhood));
 	}
 	
 	@Test
@@ -76,4 +82,6 @@ class RuleTest {
 		next = rule.evolve(current);
 		assertEquals("TTFTTFFF", next.getStates('F', 'T'));
 	}
+
+
 }

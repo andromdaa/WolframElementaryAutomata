@@ -18,6 +18,8 @@ public class Rule {
     private final boolean[] ruleStates = new boolean[8];
     private final HashMap<String, Boolean> binaryValues = new HashMap<>();
     private final ArrayList<Character> charList = new ArrayList<>();
+    private static final int TRUE = 1;
+    private static final int FALSE = 0;
 
     /*
     On the first generation, the middle index is set to 1 (positive),
@@ -115,7 +117,8 @@ public class Rule {
 
     /**
      * Evolves the entire generation onto the next using the given rule number corresponding values.
-     * @param gen The generation that is going to be evoled
+     *
+     * @param gen The generation that is going to be evolved
      * @return Returns the new, evolved generation.
      */
     public Generation evolve(Generation gen) {
@@ -151,7 +154,10 @@ public class Rule {
         //creates a new boolean array which will store the neighbors of the index and the index itself
         boolean[] neighbors = new boolean[3];
 
-        if (idx == 0) {
+        if (generationBooleans.length == 1) {
+            //if the array only has one value, the only neighbors it has are itself.
+            Arrays.fill(neighbors, generationBooleans[0]);
+        } else if (idx == 0) {
             //if the index is 0, the left neighbor is the last index
             neighbors[0] = generationBooleans[generationBooleans.length - 1];
             neighbors[1] = generationBooleans[idx];
@@ -174,6 +180,7 @@ public class Rule {
 
     /**
      * Evolves one index given the neighborhood instead of the entire generation.
+     *
      * @param neighborhood The neighborhood that is going to be used to determine the next generation of the middle index.
      * @return Returns a boolean value which signifies the evolved state of the index.
      */
@@ -186,9 +193,9 @@ public class Rule {
         //enhanced for loop checks if true, then adds 1 to the string, if false, then adds a 0
         for (boolean b : neighborhood) {
             if (b) {
-                intNeighborhood.append(1);
+                intNeighborhood.append(TRUE);
             } else {
-                intNeighborhood.append(0);
+                intNeighborhood.append(FALSE);
             }
         }
 
